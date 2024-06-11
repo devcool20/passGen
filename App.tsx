@@ -1,7 +1,7 @@
 /* eslint-disable semi */
 /* eslint-disable eol-last */
 /* eslint-disable prettier/prettier */
-import { SafeAreaView, ScrollView, StyleSheet, Text, View } from 'react-native'
+import { SafeAreaView, ScrollView, StyleSheet, Text, View, TouchableOpacity, TextInput } from 'react-native'
 import React, { useState } from 'react'
 
 import BouncyCheckbox from 'react-native-bouncy-checkbox';
@@ -98,33 +98,39 @@ export default function App() {
          errors,
          touched,
          handleChange,
-         
-         handleBlur,
+         isValid,
          handleSubmit,
-         isSubmitting,
+         handleReset,
          /* and other goodies */
        }) => (
-         <form onSubmit={handleSubmit}>
-           <input
-             type="email"
-             name="email"
-             onChange={handleChange}
-             onBlur={handleBlur}
-             value={values.email}
-           />
-           {errors.email && touched.email && errors.email}
-           <input
-             type="password"
-             name="password"
-             onChange={handleChange}
-             onBlur={handleBlur}
-             value={values.password}
-           />
-           {errors.password && touched.password && errors.password}
-           <button type="submit" disabled={isSubmitting}>
-             Submit
-           </button>
-         </form>
+         <>
+         <View style={styles.imputWrapper}>
+          <View style={styles.imputColumn}>
+            <Text style={styles.heading}>Password Length</Text>
+            {touched.passwordLength && errors.passwordLength && 
+            (<Text style={styles.errorText}>
+              {errors.passwordLength}
+            </Text>
+          )}
+          </View>
+          <TextInput
+            style={styles.imputStyle}
+            value={values.passwordLength}
+            onChangeText={handleChange('passwordLength')}
+            placeholder="Ex. 8"
+            keyboardType='numeric'
+            />
+         </View>
+         <View style={styles.imputWrapper}></View>
+         <View style={styles.imputWrapper}></View>
+         <View style={styles.imputWrapper}></View>
+         <View style={styles.imputWrapper}></View>
+
+         <View style={styles.formActions}>
+          <TouchableOpacity><Text>Generate Password</Text></TouchableOpacity>
+          <TouchableOpacity><Text>Reset</Text></TouchableOpacity>         
+         </View>
+         </>
        )}
      </Formik>
         </View>
